@@ -107,7 +107,13 @@ def title(folder):
 # --- waypaper config + guard -------------------------------------------------
 
 def exe():
-    return shutil.which("we-still") or f"{sys.executable} -m we_still"
+    # systemd's PATH lacks ~/.local/bin, so look there explicitly; the module
+    # fallback needs the package importable from the checkout it lives in.
+    found = shutil.which("we-still") or shutil.which("we-still", path=str(Path.home() / ".local/bin"))
+    if found:
+        return found
+    root = Path(__file__).resolve().parent.parent
+    return f"env PYTHONPATH={root} {sys.executable} -m we_still"
 
 
 def wanted(workshop):

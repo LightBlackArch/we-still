@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "we-still"
+version = "0.1.0"
+description = "Set a Steam Wallpaper Engine wallpaper as a high-quality still desktop background"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = ["Pillow", "numpy"]
+
+[project.scripts]
+we-still = "we_still.cli:main"
+
+[tool.setuptools]
+packages = ["we_still"]
